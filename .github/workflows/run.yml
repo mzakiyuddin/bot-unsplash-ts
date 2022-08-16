@@ -40,4 +40,4 @@ jobs:
         run: pnpm install
 
       - name: Run Script
-        run: ts-node index.ts
+        run: pnpm ts-node index.ts
