@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/lodash': ^4.14.183
   cheerio: 1.0.0-rc.12
   cross-fetch: ^3.1.5
   lodash: ^4.17.21
@@ -11,6 +12,7 @@ dependencies:
   cross-fetch: 3.1.5
 
 devDependencies:
+  '@types/lodash': 4.14.183
   cheerio: 1.0.0-rc.12
   lodash: 4.17.21
   ts-node: 10.9.1_typescript@4.7.4
@@ -55,6 +57,10 @@ packages:
 
   /@tsconfig/node16/1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
+    dev: true
+
+  /@types/lodash/4.14.183:
+    resolution: {integrity: sha512-UXavyuxzXKMqJPEpFPri6Ku5F9af6ZJXUneHhvQJxavrEjuHkFp2YnDWHcxJiG7hk8ZkWqjcyNeW1s/smZv5cw==}
     dev: true
 
   /acorn-walk/8.2.0:
