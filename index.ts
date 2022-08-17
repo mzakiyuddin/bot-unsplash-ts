@@ -1,18 +1,37 @@
-import fetch from "cross-fetch";
 import { random } from "lodash";
-import { downloadPhoto, fetchPage, parseDownloadLink } from "./lib";
+import {
+  downloadPhoto,
+  fetchPage,
+  getAllPhotos,
+  parseDownloadLink,
+  sleep,
+} from "./lib";
+import { logger } from "./logger";
 
 const launch = async (url: string) => {
-  const data = await fetchPage(url);
-  const a = parseDownloadLink(data);
-  await downloadPhoto(a);
+  const randomNumber = random(500, 1000);
+  logger.info(`Start download ${randomNumber} times`);
+
+  for (let i = 0; i < randomNumber; i++) {
+    await sleep(random(1000, 2000));
+
+    const data = await fetchPage(url);
+
+    const a = parseDownloadLink(data);
+    if (!a) {
+      logger.error("No download link found");
+      return;
+    }
+
+    await downloadPhoto(a, i);
+  }
 };
 
 const main = async () => {
-  const randomNumber = random(51, 100);
-
-  for (let i = 0; i < randomNumber; i++) {
-    await launch("https://unsplash.com/photos/osVeNwhlBes");
+  const listPhotos = await getAllPhotos("https://unsplash.com/@zakiego");
+  for (const url of listPhotos) {
+    logger.info(`Start download ${url}`);
+    await launch(url);
   }
 };
 
