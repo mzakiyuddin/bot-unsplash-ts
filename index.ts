@@ -24,7 +24,9 @@ const launch = async (photos: Photos) => {
 
       await downloadPhoto(a);
       logger.info(
-        `Succes download - ${i}/${randomNumber} - image ${photos.index}/${photos.total}`,
+        `Succes download - ${i + 1}/${randomNumber} - image ${
+          photos.index + 1
+        }/${photos.total}`,
       );
     } catch (error) {
       logger.error(error);
