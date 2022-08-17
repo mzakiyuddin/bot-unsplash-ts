@@ -24,12 +24,16 @@ export const parseDownloadLink = (doc: string) => {
   return a;
 };
 
-export const downloadPhoto = async (url: string, i: number) => {
+export const downloadPhoto = async (
+  url: string,
+  i: number,
+  randomNumber: number,
+) => {
   const data = await fetch(url);
   if (!data.ok) {
     logger.error(`Error download`);
   }
-  logger.info(`Succes download - ${i}`);
+  logger.info(`Succes download - ${i}/${randomNumber}`);
 };
 
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
