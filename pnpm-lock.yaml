@@ -7,6 +7,7 @@ specifiers:
   lodash: ^4.17.21
   pino: ^8.4.1
   pino-pretty: ^9.0.0
+  remeda: ^1.0.1
   ts-node: ^10.9.1
   typescript: ^4.7.4
 
@@ -19,6 +20,7 @@ devDependencies:
   '@types/lodash': 4.14.183
   cheerio: 1.0.0-rc.12
   lodash: 4.17.21
+  remeda: 1.0.1
   ts-node: 10.9.1_typescript@4.7.4
   typescript: 4.7.4
 
@@ -418,6 +420,10 @@ packages:
     resolution: {integrity: sha512-57frrGM/OCTLqLOAh0mhVA9VBMHd+9U7Zb2THMGdBUoZVOtGbJzjxsYGDJ3A9AYYCP4hn6y1TVbaOfzWtm5GFg==}
     engines: {node: '>= 12.13.0'}
     dev: false
+
+  /remeda/1.0.1:
+    resolution: {integrity: sha512-W/YDzHzIDDFnD9g5fKmvKSnV7uFvDV6EnM+dfd2iCQdhTyttvhcBkK3YTaxIikefr9UkAsxHyxdZWjhbWZ7x8g==}
+    dev: true
 
   /safe-buffer/5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
