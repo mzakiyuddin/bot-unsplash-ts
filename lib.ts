@@ -1,6 +1,7 @@
 import cheerio from "cheerio";
 import fetch from "cross-fetch";
 import { logger } from "./logger";
+import * as R from "remeda"; // tree-shaking supported!
 
 export const getAllPhotos = async (urlProfile: string) => {
   const doc = await fetch(urlProfile).then((res) => res.text());
@@ -10,7 +11,7 @@ export const getAllPhotos = async (urlProfile: string) => {
       return `https://unsplash.com${$(this).attr("href")}`;
     })
     .get();
-  return a;
+  return R.uniq(a);
 };
 
 export const fetchPage = async (url: string) => {
@@ -24,16 +25,11 @@ export const parseDownloadLink = (doc: string) => {
   return a;
 };
 
-export const downloadPhoto = async (
-  url: string,
-  i: number,
-  randomNumber: number,
-) => {
+export const downloadPhoto = async (url: string) => {
   const data = await fetch(url);
   if (!data.ok) {
     logger.error(`Error download`);
   }
-  logger.info(`Succes download - ${i}/${randomNumber}`);
 };
 
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
