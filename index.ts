@@ -13,8 +13,6 @@ const launch = async (url: string) => {
   logger.info(`Start download ${randomNumber} times`);
 
   for (let i = 0; i < randomNumber; i++) {
-    await sleep(random(1000, 2000));
-
     const data = await fetchPage(url);
 
     const a = parseDownloadLink(data);
