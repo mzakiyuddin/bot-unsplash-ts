@@ -4,24 +4,27 @@ import {
   fetchPage,
   getAllPhotos,
   parseDownloadLink,
-  sleep,
 } from "./lib";
 import { logger } from "./logger";
 
 const launch = async (url: string) => {
   const randomNumber = random(500, 1000);
-  logger.info(`Start download ${randomNumber} times`);
+  logger.info(`Will download ${randomNumber} times`);
 
   for (let i = 0; i < randomNumber; i++) {
-    const data = await fetchPage(url);
+    try {
+      const data = await fetchPage(url);
 
-    const a = parseDownloadLink(data);
-    if (!a) {
-      logger.error("No download link found");
-      return;
+      const a = parseDownloadLink(data);
+      if (!a) {
+        logger.error("No download link found");
+        return;
+      }
+
+      await downloadPhoto(a, i, randomNumber);
+    } catch (error) {
+      logger.error(error);
     }
-
-    await downloadPhoto(a, i);
   }
 };
 
