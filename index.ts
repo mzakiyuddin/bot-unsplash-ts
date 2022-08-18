@@ -9,7 +9,7 @@ import { logger } from "./logger";
 import { Photos } from "./type";
 
 const launch = async (photos: Photos) => {
-  const randomNumber = random(800, 1000);
+  const randomNumber = random(1800, 2000);
   const downloadLink = await createDownloadLinkPhoto(photos.url);
 
   logger.info(`Will download ${randomNumber} times`);
