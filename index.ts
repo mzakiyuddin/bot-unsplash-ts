@@ -1,28 +1,26 @@
 import { random } from "lodash";
 import {
+  createDownloadLinkPhoto,
   downloadPhoto,
   fetchPage,
   getAllPhotos,
-  parseDownloadLink,
 } from "./lib";
 import { logger } from "./logger";
 import { Photos } from "./type";
 
 const launch = async (photos: Photos) => {
-  const randomNumber = random(500, 1000);
+  const randomNumber = random(800, 1000);
+  const downloadLink = await createDownloadLinkPhoto(photos.url);
+
   logger.info(`Will download ${randomNumber} times`);
+  logger.info(`Photo url ${photos.url}`);
+  logger.info(`Download link ${downloadLink}`);
 
   for (let i = 0; i < randomNumber; i++) {
     try {
-      const data = await fetchPage(photos.url);
+      await fetchPage(photos.url);
+      await downloadPhoto(downloadLink);
 
-      const a = parseDownloadLink(data);
-      if (!a) {
-        logger.error("No download link found");
-        return;
-      }
-
-      await downloadPhoto(a);
       logger.info(
         `Succes download - ${i + 1}/${randomNumber} - image ${
           photos.index + 1
@@ -37,7 +35,8 @@ const launch = async (photos: Photos) => {
 const main = async () => {
   const listPhotos = await getAllPhotos("https://unsplash.com/@zakiego");
 
-  for (let i = 0; i < listPhotos.length; i++) {
+  // for (let i = 0; i < listPhotos.length; i++) {
+  for (let i = 0; i < 1; i++) {
     const photos = { index: i, url: listPhotos[i], total: listPhotos.length };
     logger.info(`Start download ${photos.url}`);
     await launch(photos);
