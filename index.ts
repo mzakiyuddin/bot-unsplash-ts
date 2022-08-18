@@ -35,8 +35,7 @@ const launch = async (photos: Photos) => {
 const main = async () => {
   const listPhotos = await getAllPhotos("https://unsplash.com/@zakiego");
 
-  // for (let i = 0; i < listPhotos.length; i++) {
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < listPhotos.length; i++) {
     const photos = { index: i, url: listPhotos[i], total: listPhotos.length };
     logger.info(`Start download ${photos.url}`);
     await launch(photos);
