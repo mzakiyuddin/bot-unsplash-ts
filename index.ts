@@ -49,7 +49,7 @@ const main = async () => {
   }
   logger.info("Success create download link");
 
-  const randomNumber = random(1800, 2000);
+  const randomNumber = random(700, 800);
   logger.info(`Will download ${randomNumber} times`);
 
   for (let i = 0; i < randomNumber; i++) {
