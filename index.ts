@@ -28,6 +28,7 @@ const launch = async (photos: Photos) => {
       );
     } catch (error) {
       logger.error(error);
+      throw new Error();
     }
   }
 };
