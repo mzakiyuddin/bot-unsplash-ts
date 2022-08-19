@@ -1,7 +1,9 @@
 import cheerio from "cheerio";
-import fetch from "cross-fetch";
 import { logger } from "./logger";
 import * as R from "remeda";
+
+var originalFetch = require("cross-fetch");
+var fetch = require("fetch-retry")(originalFetch);
 
 export const getAllPhotos = async (urlProfile: string) => {
   const doc = await fetch(urlProfile).then((res) => res.text());
@@ -15,12 +17,15 @@ export const getAllPhotos = async (urlProfile: string) => {
 };
 
 export const fetchPage = async (url: string) => {
-  const data = await fetch(url).then((res) => res.text());
+  const data = await fetch(url, {
+    retries: 2,
+    retryDelay: 1000,
+  }).then((res) => res.text());
   return data;
 };
 
 export const downloadPhoto = async (url: string) => {
-  const data = await fetch(url);
+  const data = await fetch(url, { retries: 2, retryDelay: 1000 });
   if (!data.ok) {
     logger.error(`Error download`);
   }
