@@ -1,5 +1,5 @@
 export interface Photos {
-  index: number;
+  id: number;
   url: string;
-  total: number;
+  downloadLink: string;
 }
