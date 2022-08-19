@@ -1,7 +1,10 @@
 import cheerio from "cheerio";
-import fetch from "cross-fetch";
+import fetch, { AbortError } from "node-fetch";
+
 import { logger } from "./logger";
 import * as R from "remeda";
+
+const FETCH_TIMEOUT = 500;
 
 export const getAllPhotos = async (urlProfile: string) => {
   const doc = await fetch(urlProfile).then((res) => res.text());
@@ -15,14 +18,47 @@ export const getAllPhotos = async (urlProfile: string) => {
 };
 
 export const fetchPage = async (url: string) => {
-  const data = await fetch(url).then((res) => res.text());
-  return data;
+  const AbortController =
+    globalThis.AbortController || (await import("abort-controller"));
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => {
+    controller.abort();
+  }, FETCH_TIMEOUT);
+
+  try {
+    const data = await fetch(url).then((res) => res.text());
+    return data;
+  } catch (error) {
+    if (error instanceof AbortError) {
+      logger.error("request was aborted");
+    }
+  } finally {
+    clearTimeout(timeout);
+  }
 };
 
 export const downloadPhoto = async (url: string) => {
-  const data = await fetch(url);
-  if (!data.ok) {
-    logger.error(`Error download`);
+  const AbortController =
+    globalThis.AbortController || (await import("abort-controller"));
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => {
+    controller.abort();
+  }, FETCH_TIMEOUT);
+
+  try {
+    const data = await fetch(url);
+
+    if (!data.ok) {
+      logger.error(`Error download`);
+    }
+  } catch (error) {
+    if (error instanceof AbortError) {
+      logger.error("request was aborted");
+    }
+  } finally {
+    clearTimeout(timeout);
   }
 };
 
@@ -43,6 +79,6 @@ export const parseImageLink = (doc: string) => {
 export const createDownloadLinkPhoto = async (url: string) => {
   const id = getIdPhoto(url);
   const page = await fetchPage(url);
-  const imagesLink = parseImageLink(page);
+  const imagesLink = parseImageLink(page as string);
   return `${imagesLink}?ixlib=rb-1.2.1&dl=m-zakiyuddin-munziri-${id}-unsplash.jpg&q=80&fm=jpg&crop=entropy&cs=tinysrgb`;
 };
