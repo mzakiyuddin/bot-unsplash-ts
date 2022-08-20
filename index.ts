@@ -1,4 +1,3 @@
-import { random } from "lodash";
 import {
   createDownloadLinkPhoto,
   downloadPhoto,
@@ -49,7 +48,7 @@ const main = async () => {
   }
   logger.info("Success create download link");
 
-  const randomNumber = random(700, 800);
+  const randomNumber = 1500;
   logger.info(`Will download ${randomNumber} times`);
 
   for (let i = 0; i < randomNumber; i++) {
